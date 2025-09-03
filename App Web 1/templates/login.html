@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+  {% if session["username"] %}
+            Bonjour {{session["username"]}}, heureux de vous retrouver.<br><br>
+            Votre message : " {{session["message"]}}  " a ete recu avec succes  ! <br><br>
+            Vous avez visite cette page {{session["compteur"]}} fois<br><br>
+        {% elif user["nom"] %}
+            Bonjour {{user["nom"]}} et Bienvenue sur mon site .<br>
+            Votre message : " {{session["message"]}} " a ete recu avec succes !<br>
+            Vous avez visite cette page {{comp}} fois<br>
+        {% else %}
+            Bienvenue sur mon site. Vous n'etes pas connecte(e)
+        {% endif %}
+    </p>
+
+    <p>
+        {% if session["username"] or user["nom"] %}
+            <button><a href="{{url_for('logout')}}">Se deconnecter</a></button>
+        {% else %}
+            <button><a href="{{url_for('login')}}">Se connecter</a></button>
+        {% endif %}
+</body>
+</html>

@@ -1,0 +1,71 @@
+body{
+    display: flex;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    background-color: #ccc;
+}
+.contenu h1{
+    display: flex;
+    margin: 7px;
+    padding: 5px;
+    color: aquamarine;
+    text-align: center;
+    top: 230px;
+
+}
+.contenu{
+    background: white;
+      padding: 20px;
+      border-radius: 8px;
+      /*box-shadow: 0 2px 6px rgba(0,0,0,0.1);*/
+      width: 400px;
+}
+input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      box-sizing: border-box;
+    }
+#liste-taches{
+    list-style: none;
+    padding: 0;
+    margin: 10px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+#liste-taches li{
+    display: flex;
+    padding: 10px;
+    margin: 10px;
+    width: 350px;
+    height: 30px;
+    justify-content: space-between;
+    background-color: #ccc;
+    font-size: 20px;
+    border-bottom: 1px solid #ccc;
+    bottom: -50px;
+}
+#liste-taches li:last-child{
+    border-bottom: none;
+}
+#liste-taches li button{
+    background-color: #f00;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+     width: 100px;
+}
+button{
+    width: 100%;
+      padding: 10px;
+      background: #28a745;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+}

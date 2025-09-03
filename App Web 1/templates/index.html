@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App Meteo</title>
+    <link rel="stylesheet" href="{{url_for('static', filename = 'css/style.css')}}">
+    <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding-top: 50px;
+    }
+    input, button {
+      padding: 10px;
+      font-size: 16px;
+    }
+    #weather {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+    <h1>🌤️ Application Météo</h1>
+  <input type="text" id="city" placeholder="Entrez une ville">
+  <button onclick="getWeather()">Voir la météo</button>
+  <div id="weather"></div>
+    <script src="{{url_for('static', filename = 'js/script.js')}}"></script>
+</body>
+</html>

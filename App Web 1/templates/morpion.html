@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <title>Morpion avec Bot amélioré</title>
+  <style>
+    body { font-family: Arial, sans-serif; text-align: center; padding: 20px; }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 100px);
+      grid-auto-rows: 100px;
+      gap: 6px;
+      justify-content: center;
+      margin: 16px auto;
+    }
+    button{
+    width: 120px;
+    padding: 5px;
+    margin: 5px;
+    background-color: blueviolet;
+    font-size: 15px;
+    border-radius: 8px;
+    color: #fff;
+    cursor: pointer;
+}
+    .cell {
+      display:flex; align-items:center; justify-content:center;
+      font-size:2rem; border:2px solid #222; cursor:pointer;
+      user-select:none;
+    }
+    .cell.filled { color: #111; background:#ddd; cursor:default; }
+  </style>
+</head>
+<body>
+
+  <h1>Morpion</h1>
+  <label>
+    Mode :
+    <select id="mode">
+      <option value="pvp">Joueur vs Joueur</option>
+      <option value="bot">Joueur vs Bot</option>
+    </select>
+  </label>
+  <p id="status">Tour de X</p>
+  <div class="grid" id="grid"></div>
+  <button id="resetBtn">Réinitialiser</button>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const grid = document.getElementById('grid');
+      const statusText = document.getElementById('status');
+      const resetBtn = document.getElementById('resetBtn');
+      const modeSelect = document.getElementById('mode');
+
+      const wins = [
+        [0,1,2],[3,4,5],[6,7,8],
+        [0,3,6],[1,4,7],[2,5,8],
+        [0,4,8],[2,4,6]
+      ];
+
+      let board, currentPlayer, gameOver, mode;
+
+      function initGrid() {
+        grid.innerHTML = '';
+        for (let i = 0; i < 9; i++) {
+          const cell = document.createElement('div');
+          cell.className = 'cell';
+          cell.dataset.index = i;
+          cell.addEventListener('click', onCellClick);
+          grid.appendChild(cell);
+        }
+      }
+
+      function onCellClick(e) {
+        //Recuperer la valeur stockee dans l'element cell avec dataset
+        //e.currentTarget recupere l'elememnt sur lequel l'ecouteur d'evenement addEventListenner est enregistre
+        const idx = Number(e.currentTarget.dataset.index);
+        play(idx);
+      }
+
+      function play(index) {
+        if (gameOver || board[index]) return;
+
+        board[index] = currentPlayer;
+        grid.children[index].textContent = currentPlayer;
+        //grid.children pour faire une collection d'elements HTML like <div class="grid" id="grid"></div> <div class="grid" id="grid"></div>...
+        grid.children[index].classList.add('filled');
+
+        if (checkWin()) {
+          statusText.textContent = 'Victoire de ' + currentPlayer + ' !';
+          gameOver = true;
+          return;
+        }
+
+        if (board.every(c => c !== null)) {
+            //On teste si chaque case est differente de null(toutes remplies)
+          statusText.textContent = 'Match nul !';
+          gameOver = true;
+          return;
+        }
+
+        currentPlayer = currentPlayer === '❌' ? '🟢' : '❌';
+        statusText.textContent = 'Tour de ' + currentPlayer;
+
+        if (mode === 'bot' && currentPlayer === '🟢' && !gameOver) {
+          setTimeout(botPlay, 400);
+        }
+      }
+
+      function checkWin() {
+        //.some() verifie si au moins un element du tableau satisfait une condition.
+        //.every() vérifie si tous les éléments d’un tableau respectent une condition.
+        return wins.some(combo => combo.every(i => board[i] === currentPlayer));
+      }
+
+      function botPlay() {
+        //ici on veut trouver toutes les cases vides du plateau pour que le bot puisse choisir où jouer.
+        //.map() crée un nouveau tableau en appliquant une fonction à chaque élément du tableau original.
+        //.filter() crée un nouveau tableau avec uniquement les éléments qui passent une condition
+
+        const empties = board.map((v,i) => v ? null : i).filter(v => v !== null);
+
+        //v represente la valeur de la case(X, O, null) du tableau, on teste si elle est remplie ou pas
+        //i represente l'indice de la case
+        if (!empties.length) return;
+
+        // 1. Jouer pour gagner
+        for (let idx of empties) {
+          board[idx] = '🟢';
+          if (wins.some(combo => combo.every(i => board[i] === '🟢'))) {
+            board[idx] = null; // remettre vide avant de jouer "officiellement"
+            play(idx);
+            return;
+          }
+          board[idx] = null;
+        }
+
+        // 2. Bloquer le joueur X
+        for (let idx of empties) {
+          board[idx] = '❌';
+          if (wins.some(combo => combo.every(i => board[i] === '❌'))) {
+            board[idx] = null;
+            play(idx);
+            return;
+          }
+          board[idx] = null;
+        }
+
+        // 3. Sinon coup aléatoire
+        const idx = empties[Math.floor(Math.random() * empties.length)];
+        play(idx);
+      }
+
+      function resetGame() {
+        board = Array(9).fill(null);
+        currentPlayer = '❌';
+        gameOver = false;
+        mode = modeSelect.value;
+        statusText.textContent = 'Tour de ' + currentPlayer;
+        for (const cell of grid.children) {
+          cell.textContent = '';
+          cell.classList.remove('filled');
+        }
+      }
+
+      initGrid();
+      resetBtn.addEventListener('click', resetGame);
+      modeSelect.addEventListener('change', resetGame);
+      resetGame();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nav-Bar</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css')}}">
+</head>
+<body>
+    <div class="menu_toggle">
+        
+    </div>
+    <header>
+    <nav>
+        <div id="nav-logo">
+            <p>Noblesse ✒️</p>
+        </div>
+        <div class="navigation">
+            <ul>
+                <span id="point">.</span>
+                <li><a href="#containerA" class="nav-item active">Acceuil</a></li>
+                <li><a href="#containerB" class="nav-item">Projets</a></li>
+                <li><a href="#containerC" class="nav-item">A propos</a></li>
+                <li><a href="#containerD" class="nav-item">Contact</a></li>
+                
+            </ul>
+        </div>
+    </nav>
+    </header>
+
+    <!--Premiere partie: Accueil-->
+    <div id="containerA">
+        <div class="left">
+            <h3><span>L. Noblesse</span></h3>
+            <p class="text">Je suis <span class="typed-text"></span><span class="cursor">&nbsp;</span></p>
+            <p class="text1">Debutant en programmation Web et passionne de programmation et de reseaux en general. Je gagne en experience jour apres jour.</p>
+            <!-- <button class="embauche">Embauchez-moi</button> -->
+            <!-- <button><a href=""></a>Download CV</button> -->
+        </div>
+        <div class="right">
+            <img src="{{ url_for('static', filename='img/noblesse.jpg')}}" alt="">
+        </div>
+    </div>
+
+    <!--Deuxieme partie : Projets-->
+    <h2>Projets</h2>
+    <div id="containerB">
+        <div class="bloc_outils">
+            <h3>Outils</h3>
+            <i class="fa-solid fa-screwdriver-wrench"></i>
+            <a href="{{ url_for('chronometre')}}">Gestion de temps</a>
+            <a href="{{ url_for('list')}}">To-Do List</a>
+        </div>
+        <div class="bloc_game">
+            <h3>Jeux</h3>
+            <i class="fa-solid fa-gamepad"></i>
+            <a href="{{ url_for('memoire')}}">Jeu de memoire</a>
+            <a href="{{ url_for('morpion')}}">Jeu du morpion</a>
+        </div>
+        <div class="bloc_autre">
+            <h3>Automatisation de taches</h3>
+            <i class="fa-solid fa-ellipsis"></i>
+            <a href="" download="TrieurDeFichiers.py">Tri de fichiers</a>
+            <a href="#" download="AnalyseFichiers.py">Analyser fichier</a>
+        </div>
+    </div>
+    
+    <!--Troisieme partie: A propos-->
+    <h2>A propos de moi</h2>
+    <div id="containerC">
+        <div class="left">
+            <h3 id="intro">Introduction</h3>
+            <p>Je travaille actuellement en HTML, CSS et JavaScript et sur l'utilisation de divers frameworks et librairies telles que Boostrap, Flask... J'ai egalement quelques notions en reseaux plus de serieuses competences en administration de systemes LINUX</p>
+            <!-- <button><a href=""></a>Download CV</button> -->
+        </div>
+        <div class="right">
+            <div class="web">
+                <h3>Front</h3>
+                <div class="contenu">
+                    <span>HTML</span>
+                    <span>CSS</span>
+                    <span>Vue</span>
+                    <span id="long">JavaScript</span>
+                    <!-- <span id="long">Boostrap</span> -->
+                    <!-- <span id="long">Tailwind</span> -->
+                </div>
+            </div>
+            <div class="prog">
+                <h3>Back & DB</h3>
+                <div class="contenu">
+                    <span>Python</span>
+                    <span>Flask</span>
+                    <span>MySQL</span>
+                </div>
+            </div>
+            <div class="autres">
+                    <h3>Autres</h3>
+                    <div class="contenu">
+                    <span>Reseaux(CCNA)</span>
+                    <span>LINUX</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h2>Contactez-moi</h2>
+    <!--Quatrieme partie-->
+    <div id="containerD"> 
+        <div class="left">
+            <h3>Trouvez-moi ⤵️</h3>
+            <a href="mailto:lnoblesse93@gmail.com">✉️ Email: lnoblesse93@gmail.com</a>
+            <br><br>
+            <a href="tel:+237 658731500">📞 +237 658 73 15 00</a>
+        </div>
+        <div class="right">
+            <form action="{{ url_for('traitement')}}" method="POST">
+                <input type="text" id="name" name="nom" placeholder="Nom">
+                <input type="password" id="mdp" name="mdp" placeholder="Mot de passe">
+                <textarea name="message" id="message" placeholder="Message" style="height: 40%;"></textarea>
+                <input type="submit" value="Envoyer" />
+            </form>
+        </div>
+    </div>
+    <footer>
+        <p>Copyright © L. Noblesse - 2025</p>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/base.js')}}"></script>
+</body>
+</html>

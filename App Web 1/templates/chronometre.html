@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chronometre</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/chronometre.css')}}">
+</head>
+<body>
+    <div class="container">
+        <div class="minuteur">
+            <h2>Minuteur</h2>
+            <div class="Chronometre">
+                <span class="time">0h</span>
+                <span class="time">0min</span>
+                <span class="time">0s</span>
+                <span class="time">0ms</span>
+            </div>
+            <div class="boutons">
+                <button id="start" onclick="Start()">Commencer</button>
+                <button id="stop" onclick="Stop()">Arreter</button>
+                <button id="restart" onclick="Reset()">Recommencer</button>
+            </div>
+        </div>
+        <div class="countdown">
+            <h1>Compte a rebours</h1>
+            <div class="recupere">
+                <input type="number" id="minutes" min="0" max="59">
+                <label for="minutes">M </label>
+                <span>     :    </span>
+                <input type="number" id="secondes" min="0" max="59">
+                <label for="secondes">S </label>
+                <div class="affiches">
+                    <h2 id="affiche">-- : --</h2>
+                </div>
+                
+            </div>
+            <div class="control">
+                <button id="commencer">Commencer</button>
+                <button id="arreter" onclick="Arreter()">Arreter</button>
+                <button id="recommencer" onclick="Recommencer()">Recommencer</button>
+            </div>
+            <progress id="progress" value="0" max="100"></progress>
+
+  <!-- petit son (bip) -->
+  <audio id="sonFin">
+    <source src="{{url_for('static', filename = 'audio/son.ogg') }}" type="audio/ogg">
+  </audio>
+        </div>
+    </div>
+    <script src="{{url_for('static', filename = 'js/chrono.js') }}"></script>
+</body>
+
+</html>
