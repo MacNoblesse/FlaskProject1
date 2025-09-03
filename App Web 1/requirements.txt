@@ -33,6 +33,7 @@ future==1.0.0
 gevent==25.5.1
 gevent-websocket==0.10.1
 greenlet==3.2.3
+gunicorn==23.0.0
 h11==0.16.0
 httpcore==1.0.9
 httpx==0.28.1
